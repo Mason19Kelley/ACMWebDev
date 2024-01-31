@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/NavBar/NavBar";
+import HomePage from "./components/HomePage/HomePage";
 
 export default function App() {
   return (
@@ -13,9 +14,9 @@ export default function App() {
             <Navbar />
             <Routes>
                 <Route
-                    exact
+                    index
                     path="/"
-                    element={<div>home</div>}
+                    element={<HomePage />}
                 ></Route>
                 <Route
                     exact

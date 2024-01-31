@@ -1,0 +1,29 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    margin-left: 2%
+}
+
+.link {
+    margin-right: 3%;
+}
+
+.body {
+    background-color: lightcyan;
+    height: 91vh;
+}
+
+.content {
+    /* height: 50%; */
+    background-color: lightgray;
+    margin-left: 1%;
+    margin-right: 1%;
+    /* overflow: auto; */
+}
+
+.list-title {
+    margin-left: 1.2%;
+}
