@@ -24,6 +24,18 @@ export default function HomePage() {
         })
     }, [])
 
+    const deleteFromList = (name) => {
+        fetch("http://localhost:3001/api/people").then(response => {
+            return response.json()
+
+        }).then(data => {
+            console.log(data)
+            setSwPeople(data)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
   return (
         <div className="wrapper">
             <Card class="body">
@@ -37,7 +49,7 @@ export default function HomePage() {
                 <Card variant="outlined" class="content" sx={{borderRadius: 2,}}>
                     <h2 className="list-title">List</h2>
                     {swPeople.map(person => (
-                        <ListItem person={person}></ListItem>
+                        <ListItem person={person} deleteFromList={deleteFromList}></ListItem>
                     ))}
                 </Card>
             </Card>

@@ -6,13 +6,15 @@ import axios from 'axios';
 
 
 export default function ListItem(props) {
-
-  // const deletePerson = () => {
-  //   console.log(props.person.name)
-  //   axios.delete(`http://localhost:3001/api/deletePersonByName/${props.person.name}`)
-  //   .then(response => console.log(response))
-  //   .catch(error => console.log(error))
-  // }
+  const deletePerson = () => {
+    console.log(props.person.name)
+    axios.delete(`http://localhost:3001/api/deletePersonByName/${props.person.name}`)
+    .then(response => {
+      console.log(response)
+      props.deleteFromList(response)
+    })
+    .catch(error => console.log(error))
+  }
   
   return (
         <Card className="card" style={{display: "flex", justifyContent: "space-between"}}>
@@ -21,7 +23,7 @@ export default function ListItem(props) {
             <p>Height: {props.person.height}</p>
             <p>Mass:{props.person.mass}</p>
           </div>
-          <Button onClick={deletePerson}variant="contained" color="error">Delete</Button>
+          <Button onClick={deletePerson} variant="contained" color="error">Delete</Button>
         </Card>
   );
 }

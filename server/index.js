@@ -7,66 +7,13 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
-let swPeople = [
-    {
-        "name": "Luke Skywalker", 
-        "height": "172", 
-        "mass": "77", 
-    }, 
-    {
-        "name": "C-3PO", 
-        "height": "167", 
-        "mass": "75", 
-    }, 
-    {
-        "name": "R2-D2", 
-        "height": "96", 
-        "mass": "32", 
-    }, 
-    {
-        "name": "Darth Vader", 
-        "height": "202", 
-        "mass": "136",  
-    }, 
-    {
-        "name": "Leia Organa", 
-        "height": "150", 
-    }, 
-    {
-        "name": "Owen Lars", 
-        "height": "178", 
-        "mass": "120", 
-    }, 
-    {
-        "name": "Beru Whitesun lars", 
-        "height": "165", 
-        "mass": "75", 
-    }, 
-    {
-        "name": "R5-D4", 
-        "height": "97", 
-        "mass": "32", 
-    }, 
-    {
-        "name": "Biggs Darklighter", 
-        "height": "183", 
-        "mass": "84", 
-    }, 
-    {
-        "name": "Obi-Wan Kenobi", 
-        "height": "182", 
-        "mass": "77", 
-    }
-]
 
 
 // MongoDB stuff
 const mongoose = require('mongoose')
 
-const password = encodeURIComponent("#password123");
-
-const url =
-  `mongodb+srv://mkk020:${password}@acmdemo.3r15yx0.mongodb.net/?retryWrites=true&w=majority`
+//mongo db connection was removed
+// if you want to test this out set up a db
 
 mongoose.set('strictQuery',false)
 
@@ -97,7 +44,7 @@ app.get('/api/people', async (request, response) => {
       console.error('Error fetching people:', error.message);
       response.status(500).send('Internal Server Error');
     }
-  });
+});
 
 
 //   app.post('/api/insertPerson', async (request, response) => {
@@ -112,6 +59,17 @@ app.get('/api/people', async (request, response) => {
 //       response.status(500).send('Internal Server Error');
 //     }
 //   });
+
+app.post('/api/insertPerson', async (request, response) => {
+    try {
+        const { name, height, mass } = request.body
+        const newPerson = new Person({name, height, mass})
+        await newPerson.save()
+        response.status(201).send('Person inserted successfully');
+    } catch (error) {
+      console.log(error)
+    }
+})
 
 //   app.delete('/api/deletePersonByName/:name', async (request, response) => {
 //     console.log("endpoint hit")
@@ -129,6 +87,18 @@ app.get('/api/people', async (request, response) => {
 //     }
 //   });
 
+
+app.delete('/api/deletePersonByName/:name', async (request, response) => {
+    try {
+      const { name } = request.params;
+      const result = await Person.deleteOne( { name })
+      if(result){
+        console.log("person deleted")
+      }
+    } catch (error){
+      console.log(error)
+    }
+})
 
 
 
